@@ -1,0 +1,49 @@
+﻿@model Book
+
+<div class="container">
+    <h1>Delete Book</h1>
+    <form method="post">
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Name: @Model.Name </label>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Description: @Model.Description</label>
+
+        </div>
+        <div class="mb-3">
+            <label asp-for="CostPrice" class="form-label">CostPrice: @Model.CostPrice</label>
+
+        </div>
+        <div class="mb-3">
+            <label asp-for="SalePrice" class="form-label">SalePrice: @Model.SalePrice</label>
+
+        </div>
+        <div class="mb-3">
+            <label asp-for="DiscountPrice" class="form-label">DiscountPrice: @Model.DiscountPrice</label>
+
+        </div>
+        <div class="mb-3">
+            <label asp-for="Code" class="form-label">Code: @Model.Code</label>
+
+        </div>
+        <div class="mb-3" >
+            <label class="form-label" asp-for="IsAvailable">IsAvailable: @Model.IsAvailable</label>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" asp-for="AuthorId">Author: @Model.Author.FullName</label>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" asp-for="CategoryId">Category: @Model.Category.Name</label>
+        </div>
+
+        <div style="width:200px">
+            <img style="max-width:100%" src="~/uploads/books/@Model.ImageUrl " alt="">
+        </div>
+
+        <h2>Silmek istediyinizden eminsiniz?
+
+        </h2>
+        <button type="submit" class="btn btn-danger">delete</button>
+    </form>
+</div>

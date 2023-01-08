@@ -1,0 +1,39 @@
+﻿@model Hero
+
+<div class="container">
+    <h1>Create Hero</h1>
+    <form method="post" enctype="multipart/form-data">
+        
+        <div class="mb-3">
+            <label asp-for="TitleUp" class="form-label">TitleUp</label>
+            <input asp-for="TitleUp" class="form-control" placeholder="TitleUp">
+            <span asp-validation-for="TitleUp" style="color:red"></span>
+
+        </div>
+        <div class="mb-3">
+            <label asp-for="TitleDown" class="form-label">TitleDown</label>
+            <input asp-for="TitleDown" class="form-control" placeholder="TitleDown">
+            <span asp-validation-for="TitleDown" style="color:red"></span>
+
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Description</label>
+            <input asp-for="Description" class="form-control" placeholder="Description">
+            <span asp-validation-for="Description" style="color:red"></span>
+
+        </div>
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label">Price</label>
+            <input asp-for="Price" class="form-control" placeholder="Price">
+            <span asp-validation-for="Price" style="color:red"></span>
+
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ImageFile" class="form-label">ImageFile</label>
+            <input asp-for="ImageFile" class="form-control" placeholder="ImageFile">
+            <span asp-validation-for="ImageFile" style="color:red"></span>
+        </div>
+        <button type="submit" class="btn btn-success">Create</button>
+    </form>
+</div>

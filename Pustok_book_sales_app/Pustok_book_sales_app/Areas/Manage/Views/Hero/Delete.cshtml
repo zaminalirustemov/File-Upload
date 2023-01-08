@@ -1,0 +1,28 @@
+﻿@model Hero
+
+<div class="container">
+    <h1>Delete Hero</h1>
+    <form method="post" enctype="multipart/form-data">
+
+        <div class="mb-3">
+            <label asp-for="TitleUp" class="form-label">TitleUp: @Model.TitleUp</label>
+        </div>
+        <div class="mb-3">
+            <label asp-for="TitleDown" class="form-label">TitleDown: @Model.TitleDown</label>
+
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Description: @Model.Description</label>
+
+        </div>
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label">Price: @Model.Price</label>
+
+        </div>
+        <div style="width:200px">
+            <img style="max-width:100%" src="~/uploads/heroes/@Model.ImageUrl " alt="">
+        </div>
+        <h2>Silmek istediyinizden eminsiniz?</h2>
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+</div>

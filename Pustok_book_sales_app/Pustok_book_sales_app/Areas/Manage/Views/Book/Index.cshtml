@@ -1,0 +1,55 @@
+﻿@model List<Book>
+@{
+    int counter = 0;
+}
+
+<div class="container">
+    <div class="d-flex" style="justify-content: space-around; align-items:center">
+        <h1>Books</h1>
+        <a class="btn btn-success" asp-action="Create" asp-controller="book">Create</a>
+    </div>
+
+
+    <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Id</th>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">SalePrice</th>
+                <th scope="col">Code</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                counter++;
+                <tr>
+
+                    <th scope="row">@counter</th>
+                    <td>@Model[i].Id</td>
+                    <td>
+                    <div style="width:200px">
+                        <img style="max-width:100%" src="~/uploads/books/@Model[i].ImageUrl " alt="">
+                    </div>
+                    </td>
+                    <td>@Model[i].Name</td>
+                    <td>@Model[i].Description</td>
+                    <td>@Model[i].SalePrice</td>
+                    <td>@Model[i].Code</td>
+                    <td>
+                        <a class="btn btn-primary" asp-action="edit" asp-controller="book" asp-route-id="@Model[i].Id">Edit</a>
+                    </td>
+                    <td>
+
+                        <a class="btn btn-danger" asp-action="delete" asp-controller="book" asp-route-id="@Model[i].Id">Delete</a>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
