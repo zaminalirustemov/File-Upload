@@ -19,15 +19,37 @@ namespace Pustok_book_sales_app.Controllers
             HomeViewModel homeViewModel = new HomeViewModel
             {
                 Heroes = _pustokDbContext.Heroes.ToList(),
-                Books = _pustokDbContext.Books.Include(x=>x.Author).Include(x=>x.Category).ToList()
+                FeaturedBooks = _pustokDbContext.Books.
+                                    Include(x=>x.Author).
+                                    Include(x=>x.BookImages).
+                                    Where(x=>x.IsFeatured).ToList(),
+                NewBooks = _pustokDbContext.Books.
+                                    Include(x => x.Author).
+                                    Include(x => x.BookImages).
+                                    Where(x => x.IsNew ).ToList(),
+                DiscountBooks = _pustokDbContext.Books.
+                                    Include(x => x.Author).
+                                    Include(x => x.BookImages).
+                                    Where(x => x.DiscountPrice >0).ToList()
             };
             return View(homeViewModel);
         }
 
         public IActionResult Detail(int id)
         {
-            Book book=_pustokDbContext.Books.Find(id);
-            return View(book);
+            Book book = _pustokDbContext.Books
+                                .Include(x=>x.Author)
+                                .Include(x=>x.Category)
+                                .Include(x=>x.BookImages)
+                                .FirstOrDefault(x => x.Id == id);
+            if (book == null) return View("Error");
+
+            BookViewModel bookVM = new BookViewModel
+            {
+                Book = book,
+                Books=_pustokDbContext.Books.Where(x=>x.IsFeatured).ToList()
+            };
+            return View(bookVM);
         }
 
     }

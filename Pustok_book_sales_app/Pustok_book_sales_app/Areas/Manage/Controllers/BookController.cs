@@ -35,24 +35,81 @@ namespace Pustok_book_sales_app.Areas.Manage.Controllers
         [HttpPost]
         public IActionResult Create(Book book)
         {
-            if (book.ImageFile.ContentType != "image/png" && book.ImageFile.ContentType != "image/jpeg")
-            {
-                ModelState.AddModelError("ImageFile", "Yalniz png ve jpeg fayillari yuklemek mumkundur");
-                return View();
-            }
-            if (book.ImageFile.Length > 2097152)
-            {
-                ModelState.AddModelError("ImageFile", "Olcusu 2 mb'dan artiq sekil yuklemek mumkun deyil");
-                return View();
-            }
-
-            book.ImageUrl = book.ImageFile.SaveFile(_environment.WebRootPath, "uploads/books");
-
-
             ViewBag.Authors = _pustokDbContext.Authors.ToList();
             ViewBag.Category = _pustokDbContext.Categories.ToList();
 
             if (!ModelState.IsValid) return View();
+            //PosterImage------------------
+            if (book.PosterImageFile != null)
+            {
+                if (book.PosterImageFile.ContentType != "image/png" && book.PosterImageFile.ContentType != "image/jpeg")
+                {
+                    ModelState.AddModelError("PosterImageFile", "Yalniz png ve jpeg fayillari yuklemek mumkundur");
+                    return View();
+                }
+                if (book.PosterImageFile.Length > 2097152)
+                {
+                    ModelState.AddModelError("PosterImageFile", "Olcusu 2 mb'dan artiq sekil yuklemek mumkun deyil");
+                    return View();
+                }
+
+                BookImage bookImage = new BookImage
+                {
+                    Book = book,
+                    ImageUrl = book.PosterImageFile.SaveFile(_environment.WebRootPath, "uploads/books"),
+                    IsPoster = true
+                };
+                _pustokDbContext.BookImages.Add(bookImage);
+            }
+            //HoverImage----------------
+            if (book.HoverImageFile != null)
+            {
+                if (book.HoverImageFile.ContentType != "image/png" && book.HoverImageFile.ContentType != "image/jpeg")
+                {
+                    ModelState.AddModelError("PosterImageFile", "Yalniz png ve jpeg fayillari yuklemek mumkundur");
+                    return View();
+                }
+                if (book.HoverImageFile.Length > 2097152)
+                {
+                    ModelState.AddModelError("PosterImageFile", "Olcusu 2 mb'dan artiq sekil yuklemek mumkun deyil");
+                    return View();
+                }
+
+                BookImage bookImage = new BookImage
+                {
+                    Book = book,
+                    ImageUrl = book.HoverImageFile.SaveFile(_environment.WebRootPath, "uploads/books"),
+                    IsPoster = false
+                };
+                _pustokDbContext.BookImages.Add(bookImage);
+            }
+
+            //MultipleImageFile--------------------------
+            if (book.ImageFiles !=null)
+            {
+                foreach (IFormFile imageFile in book.ImageFiles)
+                {
+
+                    if (imageFile.ContentType != "image/png" && imageFile.ContentType != "image/jpeg")
+                    {
+                        ModelState.AddModelError("ImageFiles", "Yalniz png ve jpeg fayillari yuklemek mumkundur");
+                        return View();
+                    }
+                    if (imageFile.Length > 2097152)
+                    {
+                        ModelState.AddModelError("ImageFiles", "Olcusu 2 mb'dan artiq sekil yuklemek mumkun deyil");
+                        return View();
+                    }
+
+                    BookImage bookImage = new BookImage
+                    {
+                        Book = book,
+                        ImageUrl = imageFile.SaveFile(_environment.WebRootPath, "uploads/books"),
+                        IsPoster=null
+                    };
+                    _pustokDbContext.BookImages.Add(bookImage);
+                }
+            }
 
             _pustokDbContext.Books.Add(book);
             _pustokDbContext.SaveChanges();
@@ -80,24 +137,80 @@ namespace Pustok_book_sales_app.Areas.Manage.Controllers
         public IActionResult Edit(Book newBook)
         {
             Book existBook = _pustokDbContext.Books.Find(newBook.Id);
-            if (newBook.ImageFile!=null)
+            //PosterImage------------------
+            if (newBook.PosterImageFile != null)
             {
-
-                if (newBook.ImageFile.ContentType != "image/png" && newBook.ImageFile.ContentType != "image/jpeg")
+                if (newBook.PosterImageFile.ContentType != "image/png" && newBook.PosterImageFile.ContentType != "image/jpeg")
                 {
-                    ModelState.AddModelError("ImageFile", "Yalniz png ve jpeg fayillari yuklemek mumkundur");
+                    ModelState.AddModelError("PosterImageFile", "Yalniz png ve jpeg fayillari yuklemek mumkundur");
+                    return View();
+                }
+                if (newBook.PosterImageFile.Length > 2097152)
+                {
+                    ModelState.AddModelError("PosterImageFile", "Olcusu 2 mb'dan artiq sekil yuklemek mumkun deyil");
                     return View();
                 }
 
-                if (newBook.ImageFile.Length > 2097152)
+                BookImage bookImage = new BookImage
                 {
-                    ModelState.AddModelError("ImageFile", "Olcusu 2 mb'dan artiq sekil yuklemek mumkun deyil");
+                    Book = newBook,
+                    ImageUrl = newBook.PosterImageFile.SaveFile(_environment.WebRootPath, "uploads/books"),
+                    IsPoster = true
+                };
+                _pustokDbContext.BookImages.Add(bookImage);
+            }
+            //HoverImage----------------
+            if (newBook.HoverImageFile != null)
+            {
+                if (newBook.HoverImageFile.ContentType != "image/png" && newBook.HoverImageFile.ContentType != "image/jpeg")
+                {
+                    ModelState.AddModelError("PosterImageFile", "Yalniz png ve jpeg fayillari yuklemek mumkundur");
                     return View();
+                }
+                if (newBook.HoverImageFile.Length > 2097152)
+                {
+                    ModelState.AddModelError("PosterImageFile", "Olcusu 2 mb'dan artiq sekil yuklemek mumkun deyil");
+                    return View();
+                }
+
+                BookImage bookImage = new BookImage
+                {
+                    Book = newBook,
+                    ImageUrl = newBook.HoverImageFile.SaveFile(_environment.WebRootPath, "uploads/books"),
+                    IsPoster = false
+                };
+                _pustokDbContext.BookImages.Add(bookImage);
+            }
+
+            //MultipleImageFile--------------------------
+            if (newBook.ImageFiles != null)
+            {
+                foreach (IFormFile imageFile in newBook.ImageFiles)
+                {
+
+                    if (imageFile.ContentType != "image/png" && imageFile.ContentType != "image/jpeg")
+                    {
+                        ModelState.AddModelError("ImageFiles", "Yalniz png ve jpeg fayillari yuklemek mumkundur");
+                        return View();
+                    }
+                    if (imageFile.Length > 2097152)
+                    {
+                        ModelState.AddModelError("ImageFiles", "Olcusu 2 mb'dan artiq sekil yuklemek mumkun deyil");
+                        return View();
+                    }
+
+                    BookImage bookImage = new BookImage
+                    {
+                        Book = newBook,
+                        ImageUrl = imageFile.SaveFile(_environment.WebRootPath, "uploads/books"),
+                        IsPoster = null
+                    };
+                    _pustokDbContext.BookImages.Add(bookImage);
                 }
             }
 
+
             FileManager.DeleteFile(_environment.WebRootPath, "uploads/books", existBook.ImageUrl);
-            newBook.ImageUrl = newBook.ImageFile.SaveFile(_environment.WebRootPath, "uploads/books");
 
 
             ViewBag.Authors = _pustokDbContext.Authors.ToList();

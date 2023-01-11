@@ -25,9 +25,9 @@ namespace Pustok_book_sales_app.Helpers
         {
             string path = Path.Combine(rootPath, folderName, filename);
 
-            if (File.Exists(path))
+            if (System.IO.File.Exists(path))
             {
-                File.Delete(path);
+                System.IO.File.Delete(path);
             }
         }
     }

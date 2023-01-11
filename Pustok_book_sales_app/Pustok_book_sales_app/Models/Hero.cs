@@ -17,6 +17,6 @@ namespace Pustok_book_sales_app.Models
         public double Price { get; set; }
 
         [NotMapped]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? ImageFile { get; set; }
     }
 }

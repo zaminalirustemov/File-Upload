@@ -72,6 +72,7 @@ namespace Pustok_book_sales_app.Areas.Manage.Controllers
         public IActionResult Edit(Hero newHero)
         {
             Hero existHero = _pustokDbContext.Heroes.Find(newHero.Id);
+            if (existHero is null) return View("Error");
             if (newHero.ImageUrl != null)
             {
 
@@ -87,13 +88,9 @@ namespace Pustok_book_sales_app.Areas.Manage.Controllers
                     return View();
                 }
             }
+            FileManager.DeleteFile(_environment.WebRootPath, "uploads/heroes", existHero.ImageUrl);
+            existHero.ImageUrl = newHero.ImageFile.SaveFile(_environment.WebRootPath, "uploads/heroes");
 
-            newHero.ImageUrl = newHero.ImageFile.SaveFile(_environment.WebRootPath, "uploads/heroes");
-
-
-            if (existHero is null) return View("Error");
-
-            existHero.ImageUrl = newHero.ImageUrl;
             existHero.TitleUp = newHero.TitleUp;
             existHero.TitleDown = newHero.TitleDown;
             existHero.Description = newHero.Description;

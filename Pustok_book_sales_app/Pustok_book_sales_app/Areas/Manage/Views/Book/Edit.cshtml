@@ -38,13 +38,6 @@
             <span asp-validation-for="Code" style="color:red"></span>
 
         </div>
-        <div class="form-check">
-            <input class="form-check-input my-1" style="transform:scale(2)" asp-for="IsAvailable">
-            <label class="form-check-label" style="margin-left:5px" asp-for="IsAvailable">
-                IsAvailable
-            </label>
-        </div>
-
         <div>
             <label asp-for="AuthorId">Authors</label>
             <select class="form-select" aria-label="Default select example" asp-for="AuthorId">
@@ -69,14 +62,42 @@
 
 
         <div class="mb-3">
-            <label asp-for="ImageFile" class="form-label">ImageFile</label>
-            <input asp-for="ImageFile" class="form-control" placeholder="ImageFile">
-            <span asp-validation-for="ImageFile" style="color:red"></span>
+            <label asp-for="PosterImageFile" class="form-label">PosterImageFile</label>
+            <input asp-for="PosterImageFile" class="form-control" placeholder="PosterImageFile">
+            <span asp-validation-for="PosterImageFile" style="color:red"></span>
         </div>
-        <div style="width:200px">
-            <img style="max-width:100%" src="~/uploads/books/@Model.ImageUrl " alt="">
+        <div class="mb-3">
+            <label asp-for="HoverImageFile" class="form-label">HoverImageFile</label>
+            <input asp-for="HoverImageFile" class="form-control" placeholder="HoverImageFile">
+            <span asp-validation-for="HoverImageFile" style="color:red"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ImageFiles" class="form-label">ImageFiles</label>
+            <input asp-for="ImageFiles" class="form-control" placeholder="ImageFiles">
+            <span asp-validation-for="ImageFiles" style="color:red"></span>
+        </div>
+
+
+
+        <div class="form-check">
+            <input class="form-check-input my-1" style="transform:scale(2)" asp-for="IsAvailable">
+            <label class="form-check-label" style="margin-left:5px" asp-for="IsAvailable">
+                IsAvailable
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input my-1" style="transform:scale(2)" asp-for="IsFeatured">
+            <label class="form-check-label" style="margin-left:5px" asp-for="IsFeatured">
+                IsFeatured
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input my-1" style="transform:scale(2)" asp-for="IsNew">
+            <label class="form-check-label" style="margin-left:5px" asp-for="IsNew">
+                IsNew
+            </label>
         </div>
         <button type="submit" class="btn btn-primary">Edit</button>
     </form>
 </div>
-        

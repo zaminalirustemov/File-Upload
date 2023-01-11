@@ -18,11 +18,21 @@ namespace Pustok_book_sales_app.Models
         public double SalePrice { get; set; }
         public double DiscountPrice { get; set; }
         public bool IsAvailable { get; set; }
+        public bool IsFeatured { get; set; }
+        public bool IsNew { get; set; }
+
         public string Code { get; set; }
         [NotMapped]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile? PosterImageFile { get; set; }
+        [NotMapped]
+        public IFormFile? HoverImageFile { get; set; }
 
         public Author? Author { get; set; }
         public Category? Category { get; set; }
+
+
+        public List<BookImage>? BookImages { get; set; }
+        [NotMapped]
+        public List<IFormFile>? ImageFiles { get; set; }
     }
 }
